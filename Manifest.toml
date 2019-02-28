@@ -17,10 +17,8 @@ uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 [[FinancialInstruments]]
 deps = ["Currencies", "Dates", "Reexport"]
 git-tree-sha1 = "25281c87b0125935723edb3f1da32ca37e200f37"
-repo-rev = "master"
-repo-url = "https://github.com/JuliaFinance/FinancialInstruments.jl.git"
 uuid = "fc5b99d0-3725-11e9-2623-bf561589b708"
-version = "0.1.0"
+version = "0.1.1"
 
 [[Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
