@@ -4,18 +4,18 @@ using Reexport
 @reexport using FinancialInstruments
 export Position
 
-struct Position{F<:FinancialInstrument}
-    amount::Float64
+struct Position{F<:FinancialInstrument,A<:Real}
+    amount::A
 end
-Position(p::FI,a::Float64) where FI<:FinancialInstrument = Position{typeof(p)}(a)
+Position(p::FI,a::A) where FI where A = Position{typeof(p)}(a)
 
-Base.:+(p1::Position{FI},p2::Position{FI}) where FI<:FinancialInstrument = Position{FI}(p1.amount+p2.amount)
-Base.:-(p1::Position{FI},p2::Position{FI}) where FI<:FinancialInstrument = Position{FI}(p1.amount-p2.amount)
+Base.:+(p1::Position{FI},p2::Position{FI}) where FI = Position{FI}(p1.amount+p2.amount)
+Base.:-(p1::Position{FI},p2::Position{FI}) where FI = Position{FI}(p1.amount-p2.amount)
 
-Base.:/(p1::Position{FI},p2::Position{FI}) where FI<:FinancialInstrument = p1.amount/p2.amount
-Base.:/(p::Position{FI},k::R) where FI<:FinancialInstrument where R<:Real = Position{FI}(c.amount/k)
+Base.:/(p1::Position{FI},p2::Position{FI}) where FI = p1.amount/p2.amount
+Base.:/(p::Position{FI},k::R) where FI where R<:Real = Position{FI}(p.amount/k)
 
-Base.:*(p::Position{FI},k::R) where FI<:FinancialInstrument where R<:Real = Position{FI}(p.amount*k)
-Base.:*(k::R,p::Position{FI}) where FI<:FinancialInstrument where R<:Real = p*k
+Base.:*(p::Position{FI},k::R) where FI where R<:Real = Position{FI}(p.amount*k)
+Base.:*(k::R,p::Position{FI}) where FI where R<:Real = p*k
 
 end # module
