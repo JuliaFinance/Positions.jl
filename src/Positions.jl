@@ -1,13 +1,14 @@
 module Positions
 
 using Reexport
-@reexport using FinancialInstruments
+@reexport using FinancialInstruments, FixedPointDecimals
 export Position
 
 struct Position{F<:FinancialInstrument,A<:Real}
     amount::A
 end
 Position(p::FI,a::A) where FI where A = Position{typeof(p),typeof(a)}(a)
+Position(c::Cash{C},a::A) where C where A = Position{typeof(c),FixedDecimal{Int,Currencies.unit(C())}}(FixedDecimal{Int,Currencies.unit(C())}(a))
 
 Base.:+(p1::Position{FI,A},p2::Position{FI,A}) where FI where A = Position{FI,A}(p1.amount+p2.amount)
 Base.:-(p1::Position{FI,A},p2::Position{FI,A}) where FI where A = Position{FI,A}(p1.amount-p2.amount)
