@@ -12,8 +12,9 @@ end
 Position(p,a) = Position{typeof(p),typeof(a)}(a)
 Position(c::Cash{C},a) where C = Position{Cash{C},FixedDecimal{Int,Currencies.unit(C())}}(FixedDecimal{Int,Currencies.unit(C())}(a))
 
-Base.promote_rule(::Type{Position{F1,A1}}, ::Type{Position{F2,A2}}) where {F1,F2,A1,A2} = Position{promote_type(F1,F2),promote_type(A1,A2)}
-Base.convert(::Type{Position{F,A}}, x::Position) where {F,A} = Position{F,A}(convert(A,x.amount))
+Base.promote_rule(::Type{Position{F,A1}}, ::Type{Position{F,A2}}) where {F,A1,A2} = Position{F,promote_type(A1,A2)}
+Base.convert(::Type{Position{F,A}}, x::Position{F,A}) where {F,A} = x
+Base.convert(::Type{Position{F,A}}, x::Position{F,<:Real}) where {F,A} = Position{F,A}(convert(A,x.amount))
 
 Base.:+(p1::Position{F,A},p2::Position{F,A}) where {F,A} = Position{F,A}(p1.amount+p2.amount)
 Base.:+(p1::AbstractPosition,p2::AbstractPosition) = +(promote(p1,p2)...)
