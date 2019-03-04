@@ -36,4 +36,7 @@ Base.:*(p::Position{F,A},k::R) where {F,A,R<:Real} = k*p
 Base.show(io::IO,c::Position{Cash{C}}) where C = print(io,c.amount," ",C())
 Base.show(io::IO,::MIME"text/plain",c::Position{Cash{C}}) where C = print(io,c.amount," ",C())
 
+Base.zero(::Type{Position{F,A}}) where {F,A} = Position{F,A}(zero(A))
+Base.one(::Type{Position{F,A}}) where {F,A} = Position{F,A}(one(A))
+
 end # module
