@@ -1,7 +1,10 @@
 module Positions
 
-using Reexport
-@reexport using FinancialInstruments, FixedPointDecimals
+using FinancialInstruments, FixedPointDecimals
+
+export Currencies, Currency
+export Countries, Country
+export FinancialInstruments, FinancialInstrument, Cash
 export Position
 
 abstract type AbstractPosition end
