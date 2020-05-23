@@ -43,4 +43,10 @@ Base.show(io::IO,::MIME"text/plain",c::Position{Cash{C}}) where C = print(io,c.a
 Base.zero(::Type{Position{F,A}}) where {F,A} = Position{F,A}(zero(A))
 Base.one(::Type{Position{F,A}}) where {F,A} = Position{F,A}(one(A))
 
+for (sym,ccy) in Currencies.list
+    @eval Positions begin
+        $sym = Position(Cash($ccy),1)
+    end
+end
+
 end # module
